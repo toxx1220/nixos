@@ -43,8 +43,8 @@
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
-    }
-  }
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -105,9 +105,14 @@
     isNormalUser = true;
     description = "toxx";
     extraGroups = [ "networkmanager" "wheel" ];
+    # Home manager defines packages for user environment as well with more options. Also good for managing dotfiles.
     packages = with pkgs; [
       kate
       vscode
+      uwufetch
+      viu
+      kitty
+      lshw
     #  thunderbird
     ];
   };
@@ -121,7 +126,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    micro # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    micro
     wget
     git
   ];
