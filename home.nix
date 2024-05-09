@@ -17,6 +17,8 @@
     lshw
     zsh
     meslo-lgs-nf
+    jetbrains-idea-ultimate
+    jetbrains.jkd
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -65,7 +67,7 @@
   #  /etc/profiles/per-user/toxx/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "zsh";
+    # EDITOR = "vi";
   };
 
   # Let Home Manager install and manage itself.

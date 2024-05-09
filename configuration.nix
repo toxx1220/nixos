@@ -115,16 +115,16 @@ in
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
-    # Home manager defines packages for user environment as well with more options. Also good for managing dotfiles.
-    packages = with pkgs; [
-      kate
-      vscode
-      uwufetch
-      viu
-      kitty
-      lshw
-    #  thunderbird
-    ];
+    # # Home manager defines packages for user environment as well with more options. Also good for managing dotfiles.
+    # packages = with pkgs; [
+    #   kate
+    #   vscode
+    #   uwufetch
+    #   viu
+    #   kitty
+    #   lshw
+    # #  thunderbird
+    # ];
   };
 
   # Allow unfree packages
@@ -141,19 +141,19 @@ in
   programs = {
     firefox.enable = true;
     steam.enable = true;
-    zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestions.enable = true;
-      syntaxHighlighting.enable = true;
+    # zsh = {
+    #   enable = true;
+    #   enableCompletion = true;
+    #   autosuggestions.enable = true;
+    #   syntaxHighlighting.enable = true;
       
-      shellAliases = {
-        rebuild = "sudo nixos-rebuild switch --flake ~/nixos/flake.nix";
-      };
-    };
+    #   shellAliases = {
+    #     rebuild = "sudo nixos-rebuild switch --flake ~/nixos/flake.nix";
+    #   };
+    # };
   };
-  users.defaultUserShell = pkgs.zsh;
-  environment.sessionVariables.TERMINAL = [ "kitty" ];
+  # users.defaultUserShell = pkgs.zsh;
+  # environment.sessionVariables.TERMINAL = [ "kitty" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
