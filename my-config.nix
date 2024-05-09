@@ -6,8 +6,7 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [ 
     ];
 
   # Kernel Version
@@ -72,9 +71,9 @@
   services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+  services.xserver.xkb = {
+    layout = "us, de(qwerty)";
+    variant = "";
   };
 
   # Enable CUPS to print documents.
