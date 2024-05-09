@@ -16,3 +16,5 @@ Can manage dotfiles.
 # Flakes
 - specify code dependencies and pkg versions declaratively (saves states in flake.lock)
 - build multiple configs in one Flake (e.g. desktop, laptop, vms, ..)
+- `nix flake update` updates flake.lock: *system will always use versions from .lock*
+- `nixos-rebuild switch --flake .# or .#host`
