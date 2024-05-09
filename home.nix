@@ -18,7 +18,7 @@
     zsh
     meslo-lgs-nf
     jetbrains.idea-ultimate
-    jetbrains.jdk
+    #jetbrains.jdk
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
