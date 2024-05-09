@@ -71,14 +71,14 @@ in
   };
 
   # Enable the SSDM for KDE Plasma Environment.
-  # not working?? services.displayManager.ssdm.enable = true;
-  
+  services.displayManager.sddm.enable = true;
+
   services.xserver = {
     # Enable the X11 windowing system.
     enable = true;
     
     # Enable the KDE Plasma Desktop Environment.
-    displayManager.sddm.enable = true;
+    # displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
@@ -127,9 +127,6 @@ in
     ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -140,6 +137,23 @@ in
     wget
     git
   ];
+  # Install some  more programs.
+  programs = {
+    firefox.enable = true;
+    steam.enable = true;
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      autosuggestions.enable = true;
+      syntaxHighlighting.enable = true;
+      
+      shellAliases = {
+        rebuild = "sudo nixos-rebuild switch --flake ~/nixos/flake.nix";
+      };
+    };
+  };
+  users.defaultUserShell = pkgs.zsh;
+  environment.sessionVariables.TERMINAL = [ "kitty" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
