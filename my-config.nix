@@ -13,10 +13,10 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Auto Upgrade
-  # system.autoUpgrade = {
-  #   enable = true;
-  #   channel = "https://nixos.org/channels/nixos-unstable";
-  # };
+  system.autoUpgrade = {
+    enable = true;
+    channel = "https://nixos.org/channels/nixos-23.11";
+  };
   
   # Bootloader.
   boot.loader = {
@@ -63,17 +63,19 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver = {
+    # Enable the X11 windowing system.
+    enable = true;
+    
+    # Enable the KDE Plasma Desktop Environment.
+    displayManager.sddm.enable = true;
+    desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us, de(qwerty)";
-    variant = "";
+    xkb = {
+      layout = "us, de(qwerty)";
+      variant = "";
+    };
   };
 
   # Enable CUPS to print documents.
