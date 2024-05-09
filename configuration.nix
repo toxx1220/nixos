@@ -9,6 +9,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    ./nvidia.nix
   ];
 
   # Kernel Version
