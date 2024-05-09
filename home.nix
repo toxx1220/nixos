@@ -89,7 +89,8 @@
       enable = true;
       plugins = [
         "powerlevel10k"
-        "zsh-kitty"];
+        "zsh-kitty"
+        ];
       theme = "powerlevel10k";      
       };
 
