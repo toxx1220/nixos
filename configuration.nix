@@ -18,7 +18,14 @@ in
   # Auto Upgrade
   system.autoUpgrade = {
     enable = true;
-    channel = "https://nixos.org/channels/nixos-unstable";
+    flake = "/home/${user}/nixos";
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--commit-lock-file"
+      "-L"
+    ];
+    dates = "10:00";
   };
   
   # Bootloader.

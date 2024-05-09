@@ -18,7 +18,8 @@
     zsh
     meslo-lgs-nf
     jetbrains.idea-ultimate
-    #jetbrains.jdk
+    spotify
+    discord
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -71,33 +72,36 @@
   };
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-  programs.zsh = {
-    autosuggestion.enable = true;
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.fetchFromGithub {
-          owner = "romkatv";
-          repo = "powerlevel10k";
-          rev = "v1.20.0";
-          sha = "16e58484262de745723ed114e09217094655eaaa";
-        };
-      }
-    ];
-    oh-my-zsh = {
-      enable = true;
+  programs = {
+    home-manager.enable = true;
+    zsh = {
+      autosuggestion.enable = true;
       plugins = [
-        "powerlevel10k"
-        "zsh-kitty"
-        ];
-      theme = "powerlevel10k";      
-      };
+        {
+          name = "powerlevel10k";
+          src = pkgs.fetchFromGithub {
+            owner = "romkatv";
+            repo = "powerlevel10k";
+            rev = "v1.20.0";
+            sha = "16e58484262de745723ed114e09217094655eaaa";
+          };
+        }
+      ];
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+          "powerlevel10k"
+          "zsh-kitty"
+          ];
+        theme = "powerlevel10k";      
+        };
 
-    shellAliases = {
-      rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
+      shellAliases = {
+        rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
+      };
     };
   };
+  
 
   programs.kitty = {
     enable = true;
