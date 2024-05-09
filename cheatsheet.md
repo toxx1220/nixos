@@ -12,3 +12,7 @@ Allows for user environment package management.
 Has more options.
 Can manage dotfiles.
 [manual](https://github.com/nix-community/home-manager/)
+
+# Flakes
+- specify code dependencies and pkg versions declaratively (saves states in flake.lock)
+- build multiple configs in one Flake (e.g. desktop, laptop, vms, ..)
