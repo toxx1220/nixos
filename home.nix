@@ -72,6 +72,17 @@
   programs.home-manager.enable = true;
   programs.zsh = {
     autosuggestion.enable = true;
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.fetchFromGithub {
+          owner = "romkatv";
+          repo = "powerlevel10k";
+          rev = "v1.20.0";
+          sha = "16e58484262de745723ed114e09217094655eaaa";
+        };
+      }
+    ];
     oh-my-zsh = {
       enable = true;
       plugins = [
