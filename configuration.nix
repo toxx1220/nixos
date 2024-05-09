@@ -100,9 +100,7 @@ in
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
+    
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
@@ -115,16 +113,6 @@ in
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
-    # # Home manager defines packages for user environment as well with more options. Also good for managing dotfiles.
-    # packages = with pkgs; [
-    #   kate
-    #   vscode
-    #   uwufetch
-    #   viu
-    #   kitty
-    #   lshw
-    # #  thunderbird
-    # ];
   };
 
   # Allow unfree packages
@@ -154,14 +142,6 @@ in
   };
   # users.defaultUserShell = pkgs.zsh;
   # environment.sessionVariables.TERMINAL = [ "kitty" ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   # List services that you want to enable:
 

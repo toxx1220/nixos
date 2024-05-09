@@ -95,7 +95,7 @@
       };
 
     shellAliases = {
-      rebuild = "sudo nixos-rebuild switch --flake ~/nixos/flake.nix";
+      rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
     };
   };
 
