@@ -20,6 +20,7 @@
     spotify
     discord
     zsh-powerlevel10k
+    signal-desktop
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -38,7 +39,6 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    # ".p10k.zsh".source = ./dotfiles/.p10k.zsh;
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -95,17 +95,11 @@
       history = {
         save = 10000;
       };
-      # oh-my-zsh = {
-      #   enable = true;
-      # };
     };
   };
 
   programs.alacritty = {
     enable = true;
-    # settings = {
-
-    # }
   };
 
 # This value determines the Home Manager release that your configuration is
