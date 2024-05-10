@@ -13,13 +13,13 @@
     vscode
     uwufetch
     viu
-    kitty
     lshw
     zsh
     meslo-lgs-nf
     jetbrains.idea-ultimate
     spotify
     discord
+    zsh-powerlevel10k
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -38,7 +38,7 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".p10k.zsh".source = ./dotfiles/.p10k.zsh;
+    # ".p10k.zsh".source = ./dotfiles/.p10k.zsh;
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -75,37 +75,37 @@
   programs = {
     home-manager.enable = true;
     zsh = {
+      enable = true;
+      enableCompletion = true;
       autosuggestion.enable = true;
-      plugins = [
-        {
-          name = "powerlevel10k";
-          src = pkgs.fetchFromGithub {
-            owner = "romkatv";
-            repo = "powerlevel10k";
-            rev = "v1.20.0";
-            sha = "16e58484262de745723ed114e09217094655eaaa";
-          };
-        }
-      ];
-      oh-my-zsh = {
-        enable = true;
-        plugins = [
-          "powerlevel10k"
-          "zsh-kitty"
-          ];
-        theme = "powerlevel10k";      
-        };
+      syntaxHighlighting.enable = true;
+      completionInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      initExtra = ''
+        # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-      shellAliases = {
-        rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
+         # Navigate words with ctrl+arrow keys
+         bindkey '^[Oc' forward-word                                     #
+         bindkey '^[Od' backward-word                                    #
+         bindkey '^[[1;5D' backward-word                                 #
+         bindkey '^[[1;5C' forward-word                                  #
+         bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
+         bindkey '^[[Z' undo                                             # Shift+tab undo last action
+        '';
+      history = {
+        save = 10000;
       };
+      # oh-my-zsh = {
+      #   enable = true;
+      # };
     };
   };
-  
 
-  programs.kitty = {
+  programs.alacritty = {
     enable = true;
-    shellIntegration.enableZshIntegration = true;
+    # settings = {
+
+    # }
   };
 
 # This value determines the Home Manager release that your configuration is

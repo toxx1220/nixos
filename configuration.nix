@@ -127,28 +127,29 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    micro
-    wget
-    git
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      micro
+      wget
+      git
+    ];
+    shellAliases = {
+      update = "sudo nix flake update ~/nixos; sudo nixos-rebuild switch --flake ~/nixos";
+      rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
+    };
+  };
   # Install some  more programs.
   programs = {
     firefox.enable = true;
     steam.enable = true;
-    # zsh = {
-    #   enable = true;
-    #   enableCompletion = true;
-    #   autosuggestions.enable = true;
-    #   syntaxHighlighting.enable = true;
-      
-    #   shellAliases = {
-    #     rebuild = "sudo nixos-rebuild switch --flake ~/nixos/flake.nix";
-    #   };
-    # };
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      autosuggestions.enable = true;
+      syntaxHighlighting.enable = true;
+    };
   };
-  # users.defaultUserShell = pkgs.zsh;
-  # environment.sessionVariables.TERMINAL = [ "kitty" ];
+  users.defaultUserShell = pkgs.zsh;
 
   # List services that you want to enable:
 
@@ -168,5 +169,4 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
