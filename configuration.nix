@@ -78,16 +78,21 @@ in
   };
 
   # Enable the SSDM for KDE Plasma Environment.
-  services.displayManager.sddm.enable = true;
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+    defaultSession = "plasma";
+  };
 
+  # Enable the KDE Plasma Desktop Environment.
+  services.desktopManager.plasma6.enable = true;
+  programs.dconf.enable = true;
   services.xserver = {
     # Enable the X11 windowing system.
     enable = true;
     
-    # Enable the KDE Plasma Desktop Environment.
-    # displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
-
   # Configure keymap in X11
     xkb = {
       layout = "us, de(qwerty)";
