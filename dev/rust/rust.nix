@@ -1,7 +1,6 @@
-# not working
+# not working currently.
 
 { pkgs ? import <nixpkgs> {} }:
-
   let
     overrides = (builtins.fromTOML (builtins.readFile ./rust-toolchain.toml));
     libPath = with pkgs; lib.makeLibraryPath [

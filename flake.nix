@@ -4,16 +4,22 @@
   # Inputs: Sources for packages specified in outputs
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-23.11";
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager }:
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager } @ inputs:
     let
+      inherit nixpkgs-stable;
       system = "x86_64-linux";
       pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      pkgsStable = import nixpkgs-stable {
         inherit system;
         config.allowUnfree = true;
       };
@@ -28,10 +34,11 @@
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {inherit pkgsStable;};
               home-manager.users.toxx = {
                 imports = [./home.nix];
               };
-            } 
+            }
           ];
         };
       };

@@ -45,6 +45,9 @@ in
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Virtualization
+  virtualisation.libvirtd.enable = true;
+
   nix = {
     # Flake (will b remove prob)
     package = pkgs.nixFlakes;

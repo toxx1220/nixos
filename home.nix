@@ -1,28 +1,37 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgsStable, ... }:
 
+let
+  user = "toxx";
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "toxx";
-  home.homeDirectory = "/home/toxx";
+  home.username = "${user}";
+  home.homeDirectory = "/home/${user}";
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
     kate
     vscode
-    uwufetch
+    #uwufetch //todo: disabled due to problems with jdk..
     viu
     lshw
     zsh
     meslo-lgs-nf
-    jetbrains.idea-ultimate
     spotify
     discord
     zsh-powerlevel10k
     signal-desktop
+
+    #Development
+    jetbrains.idea-ultimate
     flutter
     android-studio
+    jdk22
+    glibc
+
+    pkgsStable.thunderbird
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -70,6 +79,9 @@
   #  /etc/profiles/per-user/toxx/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
+    JAVA_HOME = "${pkgs.jdk22}/lib/openjdk";
+    ANDROID_HOME = "/home/${user}/Android/Sdk";
+    FLUTTER_ROOT = "${pkgs.flutter}";
     # EDITOR = "vi";
   };
 
