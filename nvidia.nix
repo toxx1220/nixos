@@ -10,6 +10,15 @@
     driSupport32Bit = true;
   };
 
+   # Virtualization
+   virtualisation.libvirtd.enable = true;
+   users.users.toxx.extraGroups = ["kvm"];
+
+  environment.variables = {
+    LIBVA_DRIVER_NAME="nvidia";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+  };
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];

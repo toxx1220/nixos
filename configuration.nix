@@ -45,8 +45,7 @@ in
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Virtualization
-  virtualisation.libvirtd.enable = true;
+
 
   nix = {
     # Flake (will b remove prob)
@@ -139,6 +138,7 @@ in
     systemPackages = with pkgs; [
       micro
       wget
+      qalculate-qt
       git
     ];
     shellAliases = {
@@ -151,6 +151,7 @@ in
 #      QT_QPA_PLATFORM="wayland-egl";
 #      _JAVA_AWT_WM_NONREPARENTING=1;
 #      ELECTRON_OZONE_PLATFORM_HINT="wayland";
+      #XDG_SESSION_TYPE = "wayland";
 #      GDK_BACKEND="wayland";
     };
   };

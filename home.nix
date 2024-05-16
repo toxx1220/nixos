@@ -30,8 +30,10 @@ in
     android-studio
     jdk22
     glibc
+    xdg-desktop-portal-gtk
+    python3
 
-    pkgsStable.thunderbird
+    thunderbird
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
