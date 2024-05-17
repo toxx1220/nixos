@@ -84,6 +84,7 @@ in
     JAVA_HOME = "${pkgs.jdk22}/lib/openjdk";
     ANDROID_HOME = "/home/${user}/Android/Sdk";
     FLUTTER_ROOT = "${pkgs.flutter}";
+    DART_ROOT = "${pkgs.flutter}/bin/cache/dart-sdk";
     # EDITOR = "vi";
   };
 

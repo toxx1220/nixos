@@ -11,14 +11,16 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager } @ inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager }:
     let
       inherit nixpkgs-stable;
       system = "x86_64-linux";
+      # Unstable
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
       };
+      # Stable
       pkgsStable = import nixpkgs-stable {
         inherit system;
         config.allowUnfree = true;

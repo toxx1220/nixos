@@ -13,7 +13,7 @@ in
   ];
 
   # Kernel Version
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_8; # 6.9.0 broke the system on 17.05.24
 
   # Auto Upgrade
   system.autoUpgrade = {
@@ -151,7 +151,7 @@ in
 #      QT_QPA_PLATFORM="wayland-egl";
 #      _JAVA_AWT_WM_NONREPARENTING=1;
 #      ELECTRON_OZONE_PLATFORM_HINT="wayland";
-      #XDG_SESSION_TYPE = "wayland";
+#      XDG_SESSION_TYPE = "wayland";
 #      GDK_BACKEND="wayland";
     };
   };
