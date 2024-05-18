@@ -142,7 +142,7 @@ in
       git
     ];
     shellAliases = {
-      update = "sudo nix flake update ~/nixos; sudo nixos-rebuild switch --flake ~/nixos";
+      update = "sudo nix flake update --commit-lock-file ~/nixos; sudo nixos-rebuild switch --flake ~/nixos";
       rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
     };
     variables = {
@@ -151,7 +151,27 @@ in
   };
   # Install some  more programs.
   programs = {
-    firefox.enable = true;
+    firefox = {
+      enable = true;
+      policies.ExtensionSettings = with builtins;
+        let extension  = shortId: uuid: {
+          name = uuid;
+          value = {
+            install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
+            installation_mode = "normal_installed";
+          };
+        };
+        in listToAttrs [
+          (extension "tree-style-tab" "treestyletab@piro.sakura.ne.jp")
+          (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
+          (extension "return-youtube-dislikes" "{762f9885-5a13-4abd-9c77-433dcd38b8fd}")
+          (extension "darkreader" "addon@darkreader.org")
+          (extension "fastforwardteam" "addon@fastforward.team")
+          (extension "ublock-origin" "uBlock0@raymondhill.net")
+          (extension "tabliss" "extension@tabliss.io")
+          (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
+        ];
+    };
     steam.enable = true;
     zsh = {
       enable = true;

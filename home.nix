@@ -14,7 +14,7 @@ in
   home.packages = with pkgs; [
     kate
     #uwufetch //todo: disabled due to problems with jdk..
-    fastfetch
+    pkgsStable.fastfetch
     viu
     lshw
     zsh
@@ -54,9 +54,6 @@ in
     #     })
     #   ];
     # })
-    flutter
-    android-studio
-    # jdk22
     glibc
     gcc
     python3
@@ -163,11 +160,11 @@ in
         mskelton.one-dark-theme     
       ];
     };
+    alacritty = {
+      enable = true;
+    };
   };
 
-  programs.alacritty = {
-    enable = true;
-  };
 
 # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

@@ -32,6 +32,7 @@ in
     (builtins.map (a: ''-I"${a}/include"'') [
       # add dev libraries here (e.g. pkgs.libvmi.dev)
       pkgs.glibc.dev
+      pkgs.idea-ultimate
     ])
     # Includes with special directory paths
     ++ [
