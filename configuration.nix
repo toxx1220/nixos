@@ -147,12 +147,6 @@ in
     };
     variables = {
       EDITOR = "micro";
-      # env variables for wayland
-#      QT_QPA_PLATFORM="wayland-egl";
-#      _JAVA_AWT_WM_NONREPARENTING=1;
-#      ELECTRON_OZONE_PLATFORM_HINT="wayland";
-#      XDG_SESSION_TYPE = "wayland";
-#      GDK_BACKEND="wayland";
     };
   };
   # Install some  more programs.

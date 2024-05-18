@@ -1,24 +1,33 @@
-with (import <nixpkgs> { config = { allowUnfree = true; android_sdk.accept_license = true; }; });
+{ config, pkgs, pkgsStable, ... }:
+
 let
-  android = pkgs.androidenv.composeAndroidPackages {
-    buildToolsVersions = [ "33.0.1" "31.0.0" "30.0.3" "28.0.3" ];
-    includeNDK = true;
-    ndkVersions = [ "25.1.8937393" ];
-    cmakeVersions = [ "3.22.1" ];
-    platformVersions = [ "34" "33" "31" "28" ];
+  system = "x86_64-linux";
+  pkgs = import <nixpkgs> {
+    inherit system;
+    config = {
+      android_sdk.accept_license = true;
+      allowUnfree = true;
+    };
+  };
+  buildToolsVersion = "34.0.0";
+  androidComposition = pkgs.androidenv.composeAndroidPackages {
+    buildToolsVersions = [ buildToolsVersion "28.0.3" ];
+    platformVersions = [ "34" "28" ];
     abiVersions = [ "armeabi-v7a" "arm64-v8a" ];
   };
-  sdk = android.androidsdk;
+  androidSdk = androidComposition.androidsdk;
 in
-
-pkgs.mkShell rec {
-  ANDROID_SDK_ROOT = "${sdk}/libexec/android-sdk";
-  CHROME_EXECUTABLE = "${pkgs.chromium}/bin/chromium";
-  nativeBuildInputs = [
-    cmake
-    flutter
-    jdk17
-  ];
+{
+  programs.adb.enable = true;
+  users.users.toxx.extraGroups = ["adbusers"];
+  pkgs.mkShell =  {
+    ANDROID_SDK_ROOT = "${androidSdk}/libexec/android-sdk";
+    buildInputs = [
+      flutter
+      androidSdk # The customized SDK that we've made above
+      jdk17
+    ];
+  };
 }
 
 

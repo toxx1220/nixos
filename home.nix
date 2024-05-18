@@ -13,24 +13,52 @@ in
   # environment.
   home.packages = with pkgs; [
     kate
-    vscode
     #uwufetch //todo: disabled due to problems with jdk..
+    fastfetch
     viu
     lshw
     zsh
     meslo-lgs-nf
     spotify
-    discord
+    psst
+    vesktop # Discord client
+    xdg-desktop-portal
+    libsForQt5.xdg-desktop-portal-kde
     zsh-powerlevel10k
     signal-desktop
 
     #Development
-    jetbrains.idea-ultimate
+    # jetbrains.idea-ultimate
+    /*(jetbrains.idea-ultimate.overrideAttrs {
+      desktopItems = [
+        (makeDesktopItem {
+          name = "IntelliJ";
+          desktopName = "IntelliJ";
+          exec = "${pkgs.jetbrains.idea-ultimate}/bin/idea-ultimate --enable-features=UseOzonePlatform,ozone-platform=wayland %u";
+          genericName = "${pkgs.jetbrains.idea-ultimate.meta.description}";
+          keywords = ["intellij" "java" "electron" "ide"];
+          categories = ["Development"];
+        })
+      ];
+    })*/
+    #vscodium
+    # (vscodium.overrideAttrs {
+    #   desktopItems = [
+    #     (makeDesktopItem {
+    #       name = "Visual Studio Code";
+    #       desktopName = "VSCode";
+    #       exec = "${pkgs.vscodium}/bin/code --enable-features=UseOzonePlatform,ozone-platform=wayland %u";
+    #       genericName = "${pkgs.vscodium.meta.description}";
+    #       keywords = ["VSCode" "Visual Studio Code" "code" "electron" "ide"];
+    #       categories = ["Development"];
+    #     })
+    #   ];
+    # })
     flutter
     android-studio
-    jdk22
+    # jdk22
     glibc
-    xdg-desktop-portal-gtk
+    gcc
     python3
 
     thunderbird
@@ -80,13 +108,14 @@ in
   #
   #  /etc/profiles/per-user/toxx/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    JAVA_HOME = "${pkgs.jdk22}/lib/openjdk";
-    ANDROID_HOME = "/home/${user}/Android/Sdk";
-    FLUTTER_ROOT = "${pkgs.flutter}";
-    DART_ROOT = "${pkgs.flutter}/bin/cache/dart-sdk";
-    # EDITOR = "vi";
-  };
+
+  # home.sessionVariables = {
+  #   JAVA_HOME = "${pkgs.jdk22}/lib/openjdk";
+  #   ANDROID_HOME = "/home/${user}/Android/Sdk";
+  #   FLUTTER_ROOT = "${pkgs.flutter}";
+  #   DART_ROOT = "${pkgs.flutter}/bin/cache/dart-sdk";
+  #   # EDITOR = "vi";
+  # };
 
   # Let Home Manager install and manage itself.
   programs = {
@@ -112,6 +141,27 @@ in
       history = {
         save = 10000;
       };
+      profileExtra = ''
+        if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+          # Set environment variables for Wayland session
+          export WAYLAND_VARIABLE="value";
+          export QT_QPA_PLATFORM="wayland";
+          export SDL_VIDEODRIVER=wayland;
+          export CLUTTER_BACKEND=wayland ;
+          export _JAVA_AWT_WM_NONREPARENTING=1;
+          export ELECTRON_OZONE_PLATFORM_HINT="auto";
+          export GDK_BACKEND="wayland";
+          export MOZ_ENABLE_WAYLAND=1;
+        fi
+      '';
+    };
+    vscode = {
+      enable = true;
+      package = pkgs.vscodium;
+      extensions = with pkgs.vscode-extensions; [
+        bbenoist.nix
+        mskelton.one-dark-theme     
+      ];
     };
   };
 
