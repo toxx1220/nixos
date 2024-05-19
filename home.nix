@@ -21,38 +21,8 @@ in
     spotify
     psst
     vesktop # Discord client
-    # xdg-desktop-portal
-    # libsForQt5.xdg-desktop-portal-kde
     zsh-powerlevel10k
     signal-desktop
-
-    #Development
-    # jetbrains.idea-ultimate
-    /*(jetbrains.idea-ultimate.overrideAttrs {
-      desktopItems = [
-        (makeDesktopItem {
-          name = "IntelliJ";
-          desktopName = "IntelliJ";
-          exec = "${pkgs.jetbrains.idea-ultimate}/bin/idea-ultimate --enable-features=UseOzonePlatform,ozone-platform=wayland %u";
-          genericName = "${pkgs.jetbrains.idea-ultimate.meta.description}";
-          keywords = ["intellij" "java" "electron" "ide"];
-          categories = ["Development"];
-        })
-      ];
-    })*/
-    #vscodium
-    # (vscodium.overrideAttrs {
-    #   desktopItems = [
-    #     (makeDesktopItem {
-    #       name = "Visual Studio Code";
-    #       desktopName = "VSCode";
-    #       exec = "${pkgs.vscodium}/bin/code --enable-features=UseOzonePlatform,ozone-platform=wayland %u";
-    #       genericName = "${pkgs.vscodium.meta.description}";
-    #       keywords = ["VSCode" "Visual Studio Code" "code" "electron" "ide"];
-    #       categories = ["Development"];
-    #     })
-    #   ];
-    # })
     glibc
     gcc
     python3

@@ -9,6 +9,7 @@ let
 in
 {
   imports = [
+    ./desktops/plasma.nix
     ./hardware-configuration.nix
     ./nvidia.nix
   ];
@@ -34,7 +35,7 @@ in
   	systemd-boot.enable = true;
   	efi.canTouchEfiVariables = true;
   	grub.theme = pkgs.nixos-grub2-theme;
-    #configurationLimit = 20; # max number of generations
+    configurationLimit = 20; # max number of generations
   };
 
   networking.hostName = "${hostname}";
@@ -91,27 +92,7 @@ in
   # Enable the KDE Plasma Desktop Environment.
   # services.desktopManager.plasma6.enable = true;
 
-  # Enable Hyprland
-  programs.hyprland = { 
-    enable = true;
-    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-  };
-  nix.settings = {
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-  };
-
   programs.dconf.enable = true;
-  services.xserver = {
-    # Enable the X11 windowing system.
-    enable = true;
-    
-  # Configure keymap in X11
-    xkb = {
-      layout = "us, de(qwerty)";
-      variant = "";
-    };
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -130,9 +111,6 @@ in
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
