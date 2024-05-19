@@ -35,7 +35,6 @@ in
   	systemd-boot.enable = true;
   	efi.canTouchEfiVariables = true;
   	grub.theme = pkgs.nixos-grub2-theme;
-    configurationLimit = 20; # max number of generations
   };
 
   networking.hostName = "${hostname}";
@@ -88,9 +87,6 @@ in
       wayland.enable = true;
     };
   };
-
-  # Enable the KDE Plasma Desktop Environment.
-  # services.desktopManager.plasma6.enable = true;
 
   programs.dconf.enable = true;
 

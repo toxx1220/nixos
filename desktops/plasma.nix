@@ -19,4 +19,5 @@
       libsForQt5.xdg-desktop-portal-kde
 			xdg-desktop-portal
     ];
+	};
 }
