@@ -2,9 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 let 
   user = "toxx";
+  hostname = "nixos";
 in
 {
   imports = [
@@ -36,7 +37,7 @@ in
     #configurationLimit = 20; # max number of generations
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "${hostname}";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -85,11 +86,21 @@ in
       enable = true;
       wayland.enable = true;
     };
-    defaultSession = "plasma";
   };
 
   # Enable the KDE Plasma Desktop Environment.
-  services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.plasma6.enable = true;
+
+  # Enable Hyprland
+  programs.hyprland = { 
+    enable = true;
+    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  };
+  nix.settings = {
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
+
   programs.dconf.enable = true;
   services.xserver = {
     # Enable the X11 windowing system.
@@ -166,6 +177,7 @@ in
           (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
           (extension "return-youtube-dislikes" "{762f9885-5a13-4abd-9c77-433dcd38b8fd}")
           (extension "darkreader" "addon@darkreader.org")
+          (extension "sponsorblock" "sponsorBlocker@ajay.app")
           (extension "fastforwardteam" "addon@fastforward.team")
           (extension "ublock-origin" "uBlock0@raymondhill.net")
           (extension "tabliss" "extension@tabliss.io")

@@ -9,9 +9,10 @@
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager }:
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, ... } @ inputs:
     let
       inherit nixpkgs-stable;
       system = "x86_64-linux";
@@ -36,12 +37,13 @@
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {inherit pkgsStable;};
+              home-manager.extraSpecialArgs = { inherit pkgsStable inputs; };
               home-manager.users.toxx = {
                 imports = [./home.nix];
               };
             }
           ];
+          specialArgs = { inherit pkgsStable inputs; };
         };
       };
     }; 

@@ -1,4 +1,4 @@
-{ config, pkgs, pkgsStable, ... }:
+{ config, pkgs, pkgsStable, inputs, ... }:
 
 let
   user = "toxx";
@@ -14,16 +14,15 @@ in
   home.packages = with pkgs; [
     kate
     #uwufetch //todo: disabled due to problems with jdk..
-    pkgsStable.fastfetch
+    fastfetch
     viu
     lshw
-    zsh
     meslo-lgs-nf
     spotify
     psst
     vesktop # Discord client
-    xdg-desktop-portal
-    libsForQt5.xdg-desktop-portal-kde
+    # xdg-desktop-portal
+    # libsForQt5.xdg-desktop-portal-kde
     zsh-powerlevel10k
     signal-desktop
 
@@ -107,10 +106,6 @@ in
   #
 
   # home.sessionVariables = {
-  #   JAVA_HOME = "${pkgs.jdk22}/lib/openjdk";
-  #   ANDROID_HOME = "/home/${user}/Android/Sdk";
-  #   FLUTTER_ROOT = "${pkgs.flutter}";
-  #   DART_ROOT = "${pkgs.flutter}/bin/cache/dart-sdk";
   #   # EDITOR = "vi";
   # };
 
