@@ -2,16 +2,16 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, system-info, ... }:
 let 
-  user = "toxx";
-  hostname = "nixos";
+  user = "${system-info.username}";
 in
 {
   imports = [
     ./desktops/plasma.nix
     ./hardware-configuration.nix
     ./nvidia.nix
+    ./dev/flutter/settings.nix
   ];
 
   # Kernel Version
@@ -37,7 +37,7 @@ in
   	grub.theme = pkgs.nixos-grub2-theme;
   };
 
-  networking.hostName = "${hostname}";
+  networking.hostName = "${system-info.hostname}";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";

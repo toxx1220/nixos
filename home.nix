@@ -1,7 +1,7 @@
-{ config, pkgs, pkgsStable, inputs, ... }:
+{ config, pkgs, pkgsStable, inputs, system-info, ... }:
 
 let
-  user = "toxx";
+  user = "${system-info.username}";
 in
 {
   # Home Manager needs a bit of information about you and the paths it should

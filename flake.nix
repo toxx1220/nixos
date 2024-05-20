@@ -14,8 +14,13 @@
 
   outputs = { self, nixpkgs, nixpkgs-stable, home-manager, ... } @ inputs:
     let
+      system-info = {
+        username = "toxx";
+        hostname = "nixos";
+        system = "x86_64-linux";
+      };
+      system = "${system-info.system}";
       inherit nixpkgs-stable;
-      system = "x86_64-linux";
       # Unstable
       pkgs = import nixpkgs {
         inherit system;
@@ -37,13 +42,13 @@
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit pkgsStable inputs; };
+              home-manager.extraSpecialArgs = { inherit pkgsStable inputs system-info; };
               home-manager.users.toxx = {
                 imports = [./home.nix];
               };
             }
           ];
-          specialArgs = { inherit pkgsStable inputs; };
+          specialArgs = { inherit pkgsStable inputs system-info; };
         };
       };
     }; 
