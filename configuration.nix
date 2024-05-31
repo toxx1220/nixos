@@ -15,7 +15,7 @@ in
   ];
 
   # Kernel Version
-  boot.kernelPackages = pkgs.linuxPackages_6_8; # 6.9.0 broke the system on 17.05.24
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Auto Upgrade
   system.autoUpgrade = {
@@ -108,7 +108,6 @@ in
     #media-session.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];

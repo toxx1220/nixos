@@ -11,7 +11,7 @@
   };
 
    # Virtualization
-   virtualisation.libvirtd.enable = true;
+   # virtualisation.libvirtd.enable = true;
    users.users.toxx.extraGroups = ["kvm"];
 
   environment.variables = {
