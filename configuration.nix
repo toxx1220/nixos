@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, system-info, ... }:
+{ config, pkgs, inputs, system-info, pkgsStable, ... }:
 let 
   user = "${system-info.username}";
 in
@@ -15,7 +15,7 @@ in
   ];
 
   # Kernel Version
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgsStable.linuxPackages_latest;
 
   # Auto Upgrade
   system.autoUpgrade = {

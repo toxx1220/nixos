@@ -128,6 +128,12 @@ in
     alacritty = {
       enable = true;
     };
+    git = {
+      enable = true;
+      diff-so-fancy.enable = true;
+      userEmail = "txx1337@proton.me";
+      userName = "toxx";
+    };
   };
 
 
