@@ -2,8 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, system-info, pkgsStable, ... }:
-let 
+{
+  config,
+  pkgs,
+  inputs,
+  system-info,
+  pkgsStable,
+  ...
+}:
+let
   user = "${system-info.username}";
 in
 {
@@ -29,12 +36,12 @@ in
     ];
     dates = "10:00";
   };
-  
+
   # Bootloader.
   boot.loader = {
-  	systemd-boot.enable = true;
-  	efi.canTouchEfiVariables = true;
-  	grub.theme = pkgs.nixos-grub2-theme;
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    grub.theme = pkgs.nixos-grub2-theme;
   };
 
   networking.hostName = "${system-info.hostname}";
@@ -45,8 +52,6 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-
 
   nix = {
     # Flake (will b remove prob)
@@ -110,7 +115,11 @@ in
 
   users.users.${user} = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
   };
 
   # Allow unfree packages
@@ -137,15 +146,18 @@ in
   programs = {
     firefox = {
       enable = true;
-      policies.ExtensionSettings = with builtins;
-        let extension  = shortId: uuid: {
-          name = uuid;
-          value = {
-            install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
-            installation_mode = "normal_installed";
+      policies.ExtensionSettings =
+        with builtins;
+        let
+          extension = shortId: uuid: {
+            name = uuid;
+            value = {
+              install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
+              installation_mode = "normal_installed";
+            };
           };
-        };
-        in listToAttrs [
+        in
+        listToAttrs [
           (extension "tree-style-tab" "treestyletab@piro.sakura.ne.jp")
           (extension "bitwarden-password-manager" "{446900e4-71c2-419f-a6a7-df9c091e268b}")
           (extension "return-youtube-dislikes" "{762f9885-5a13-4abd-9c77-433dcd38b8fd}")

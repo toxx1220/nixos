@@ -3,10 +3,17 @@ description = "Flutter nix environment";
 inputs = {
   nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   flake-utils.url = "github:numtide/flake-utils";
+  # flutter-src.url = "github:flutter/flutter";
+  # flutter-src.flake = false;
 };
 outputs = { self, nixpkgs, flake-utils, ...} @ inputs :
   flake-utils.lib.eachDefaultSystem (system:
     let
+      flutter-version = "flutter_linux_3.22.0-stable";
+      flutter-url = "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/${flutter-version}.tar.xz";
+      flutter-rootdir="/usr/local";
+      flutter-directory="${flutter-rootdir}/${flutter-version}";
+
       pkgs = import nixpkgs {
         inherit system;
         config = {
@@ -33,27 +40,24 @@ outputs = { self, nixpkgs, flake-utils, ...} @ inputs :
     in
     {
       devShell =
-        with pkgs; mkShell rec {
-          ANDROID_SDK_ROOT = "${androidSdk}/libexec/android-sdk";
-          CHROME_EXECUTABLE="${chromium}/bin/chromium";
-          buildInputs = [
-            # Flutter dependencies
+        with pkgs;  pkgs.buildFHSUserEnv {
+          name = "flutter-env";
+          targetPkgs = pkgs: (with pkgs; [
+             # Flutter dependencies
             curl
             git
             unzip
             xz
             libGL
-            flutter
-            chromium
 
             androidSdk
             android-studio
-            jdk22
-            gradle
+            jdk21
+          ]);
+          multiBuildInputs = with pkgs; [
+            stdenv.cc.cc.lib
           ];
-          shellHook = ''
-          android-studio&
-          '';
+          extraBuildCommands = "./setup.sh";
         };
-      });
+    });
 }

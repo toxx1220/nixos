@@ -6,8 +6,15 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      ...
+    }@inputs:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs {
           inherit system;
@@ -20,7 +27,7 @@
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             # JDK and necessary tools
-            openjdk21 # or another version like openjdk15, etc.
+            openjdk22 # or another version like openjdk15, etc.
             maven # if you use Maven
             gradle # if you use Gradle
 
@@ -31,6 +38,7 @@
             # Other tools you might need
             git
             # Any other packages you need...
+            postman
           ];
 
           # Optional environment variables

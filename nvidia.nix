@@ -1,27 +1,32 @@
 # NVIDIA rtx 2070 super configuration
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-    # Enable OpenGL
+  # Enable OpenGL
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
   };
 
-   # Virtualization
-   # virtualisation.libvirtd.enable = true;
-   users.users.toxx.extraGroups = ["kvm"];
+  # Virtualization
+  # virtualisation.libvirtd.enable = true;
+  users.users.toxx.extraGroups = [ "kvm" ];
 
   environment.variables = {
-    LIBVA_DRIVER_NAME="nvidia";
+    LIBVA_DRIVER_NAME = "nvidia";
     GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     # Modesetting is required.
@@ -44,7 +49,7 @@
     open = false;
 
     # Enable the Nvidia settings menu,
-	  # accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     #package = config.boot.kernelPackages.nvidiaPackages.beta;

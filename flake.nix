@@ -12,7 +12,14 @@
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, ... } @ inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-stable,
+      home-manager,
+      ...
+    }@inputs:
     let
       system-info = {
         username = "toxx";
@@ -32,24 +39,30 @@
         config.allowUnfree = true;
       };
       lib = nixpkgs.lib;
-    in {
+    in
+    {
       nixosConfigurations = {
         # profile 
         nixos = lib.nixosSystem {
           inherit system;
           modules = [
             ./configuration.nix
-            home-manager.nixosModules.home-manager {
+            home-manager.nixosModules.home-manager
+            {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit pkgsStable inputs system-info; };
+              home-manager.extraSpecialArgs = {
+                inherit pkgsStable inputs system-info;
+              };
               home-manager.users.toxx = {
-                imports = [./home.nix];
+                imports = [ ./home.nix ];
               };
             }
           ];
-          specialArgs = { inherit pkgsStable inputs system-info; };
+          specialArgs = {
+            inherit pkgsStable inputs system-info;
+          };
         };
       };
-    }; 
+    };
 }
