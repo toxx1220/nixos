@@ -135,7 +135,7 @@ in
       git
     ];
     shellAliases = {
-      update = "sudo nix flake update --commit-lock-file ~/nixos; sudo nixos-rebuild switch --flake ~/nixos";
+      update = "sudo nix flake update ~/nixos; sudo nixos-rebuild switch --flake ~/nixos";
       rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
     };
     variables = {
