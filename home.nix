@@ -26,6 +26,8 @@ in
     glibc
     gcc
     python3
+    docker
+    tree
 
     thunderbird
 
