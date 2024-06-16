@@ -3,7 +3,7 @@
 
   # Inputs: Sources for packages specified in outputs
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-23.11";
     home-manager = {
       url = "github:nix-community/home-manager";
