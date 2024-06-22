@@ -3,9 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  config,
   pkgs,
-  inputs,
   system-info,
   pkgsStable,
   ...
@@ -176,8 +174,14 @@ in
       autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
     };
+    appimage = {
+      enable = true;
+      binfmt = true;
+    };
   };
   users.defaultUserShell = pkgs.zsh;
+  virtualisation.docker.enable = true;
+
 
   # List services that you want to enable:
 

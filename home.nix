@@ -1,17 +1,21 @@
-{ config, pkgs, pkgsStable, inputs, system-info, ... }:
+{ pkgs, system-info, ... }:
 
 let
   user = "${system-info.username}";
+  homeDirectory = "/home/${user}";
+  stayFreePath = "${homeDirectory}/stayFree.AppImage";
+  stayFreeSource = "https://github.com/stayfree-app/desktop-releases/releases/latest/download/stayfree-linux-x86_64.AppImage";
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "${user}";
-  home.homeDirectory = "/home/${user}";
+  home.homeDirectory = homeDirectory;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    bash
     kate
     #uwufetch //todo: disabled due to problems with jdk..
     fastfetch
@@ -44,7 +48,7 @@ in
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
-    
+
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
@@ -101,7 +105,7 @@ in
          bindkey '^[[1;5C' forward-word                                  #
          bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
          bindkey '^[[Z' undo                                             # Shift+tab undo last action
-        '';
+      '';
       history = {
         save = 10000;
       };
@@ -124,7 +128,7 @@ in
       package = pkgs.vscodium;
       extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
-        mskelton.one-dark-theme     
+        mskelton.one-dark-theme
       ];
     };
     alacritty = {
@@ -138,8 +142,28 @@ in
     };
   };
 
+  # Not working somehow.
+  systemd.user.services.StartStayFree = {
+    Unit = {
+      Description = "Start StayFree Application";
+    };
+    Install = {
+      WantedBy = ["default.target"];
+    };
+    Service = {
+      ExecStart = ''${pkgs.bash}/bin/bash -c  '\
+        if [ ! -f ${stayFreePath} ]; then \
+          curl -o ${stayFreePath} ${stayFreeSource}; \
+          chmod +x ${stayFreePath}; \
+        fi; \
+         ${stayFreePath}'
+         '';
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+  };
 
-# This value determines the Home Manager release that your configuration is
+  # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
   #
